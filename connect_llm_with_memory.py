@@ -138,10 +138,17 @@ db = FAISS.load_local(DB_FAISS_PATH, embedding_model, allow_dangerous_deserializ
 multiquery_retriever = LocalMultiQueryRetriever.from_llm(llm=llm, retriever=db.as_retriever(search_kwargs={"k": 3}))
 
 def answer_question(question):
+    # Handle greetings with a default response
+    greetings = ["hi", "hello", "hey"]
+    if question.lower() in greetings:
+        return "Hello! How can I assist you with your medical questions today?"
+
+    # Retrieve relevant documents
     docs = multiquery_retriever.get_relevant_documents(question)
     context = "\n".join([doc.page_content for doc in docs])
     prompt = custom_prompt.format(context=context, question=question)
     response = llm.invoke(prompt)
+
     # Extract the content from the AIMessage object
     if hasattr(response, 'content'):
         answer = response.content
