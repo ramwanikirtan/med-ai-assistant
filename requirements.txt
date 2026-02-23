@@ -15,3 +15,6 @@ spacy
 transformers
 requests
 langchain-huggingface
+langchain-core
+langchain-community
+typing
