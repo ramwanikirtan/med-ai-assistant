@@ -140,7 +140,7 @@ multiquery_retriever = LocalMultiQueryRetriever.from_llm(llm=llm, retriever=db.a
 def answer_question(question):
     # Handle greetings with a default response
     greetings = ["hi", "hello", "hey"]
-    if question.lower() in greetings:
+    if question.strip().lower() in greetings:
         return "Hello! How can I assist you with your medical questions today?"
 
     # Retrieve relevant documents
