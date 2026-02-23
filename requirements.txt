@@ -14,3 +14,4 @@ nltk
 spacy
 transformers
 requests
+langchain-huggingface
